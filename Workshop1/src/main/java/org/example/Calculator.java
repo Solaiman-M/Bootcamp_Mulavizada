@@ -23,13 +23,13 @@ public class Calculator{
                 switch (calNum) {
                     case 1:
 
-                        System.out.printf("Enter your Loan Principle: ");
+                        System.out.print("Enter your Loan Principle: ");
                         double p = scanner.nextDouble(); //p for prrinciple
 
-                        System.out.printf("Enter the Interest Rate: ");
+                        System.out.print("Enter the Interest Rate: ");
                         double r = scanner.nextDouble(); // r for interest rate
 
-                        System.out.printf("What is your loan length in Years? ");
+                        System.out.print("What is your loan length in Years? ");
                         int n = scanner.nextInt(); // n for year length
 
                         double mR = (r / 100.0) / 12.0; //monthly interest rate
@@ -46,7 +46,7 @@ public class Calculator{
                             double montlyInterestRateInDecimal = r/1200;
                             double m = monthlyPrinciple * montlyInterestRateInDecimal;
                             */
-                        System.out.println("");
+                        System.out.println();
                         System.out.printf("Your monthly payment is: $%.2f%n", m);
                         System.out.printf("Your Total Interest paid is: $%.2f%n", totalInterestPaid);
                         calNum =0;
@@ -69,7 +69,7 @@ public class Calculator{
                         double pResult = Math.pow(1 + aR/n1, n1 *t);
                         double FV = p * pResult;
                         double totalIn = FV - p;
-                        System.out.println(" ");
+                        System.out.println();
                         System.out.printf("The future value is: $%.2f%n", FV);
                         System.out.printf("The total Interest earned is: $%.2f%n",totalIn);
 
@@ -83,9 +83,9 @@ public class Calculator{
 
                 }
                 if(calNum == 0){
-                    System.out.println("");
-                    System.out.println("");
-                    System.out.println("--- Welcome back to Financial Calculator Menu ---");
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("--- Choose Another Financial Calculator From Menu ---");
                     System.out.println("1. Mortgage Calculator");
                     System.out.println("2. Future Value Calculator (Compound Interest)");
                     System.out.println("3. Present Value of Annuity Calculator");
@@ -96,11 +96,15 @@ public class Calculator{
                 }
 
             } else {
-                System.out.println("You enter a wrong number.");
+
+
+                System.out.print("You Enter a Wrong Number.You should Enter a Number Between (0-3): ");
+                calNum =scanner.nextInt();
             }
 
         }
-            System.out.println("Thank you for visiting our website.");
+        System.out.println();
+        System.out.println("Thank you for visiting our website. Goodbye.");
 
     }
 }
