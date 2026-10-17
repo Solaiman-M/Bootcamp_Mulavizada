@@ -77,6 +77,24 @@ public class Calculator{
                         break;
 
                     case 3:
+                        System.out.print("Enter the monthly payout in dollar: ");
+                        m = scanner.nextDouble(); //p for initial deposit
+
+                        System.out.print("Enter the Interest Rate: ");
+                        r = scanner.nextDouble(); // r for annual interest rate
+
+                        System.out.print("Enter the number of Years: ");
+                        n = scanner.nextInt();
+
+                        aR  = r/100.0/12.0; //annual rate
+                        double yearInMonth = n * 12; //number of monthly payment
+
+                        double powerR = (1-Math.pow(1 + aR, -yearInMonth))/aR;
+
+                        double monthlyPay = m * powerR;
+
+                        System.out.println();
+                        System.out.printf("You Need to invest: $%.2f%n", monthlyPay);
 
                         calNum =0;
                         break;
