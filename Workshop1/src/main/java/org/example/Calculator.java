@@ -100,7 +100,15 @@ public class Calculator{
                         break;
 
                 }
-                if(calNum == 0){
+
+                System.out.println();
+                System.out.println("Do you want to do another calculation");
+                System.out.print("Write true or false: ");
+                boolean T = scanner.nextBoolean();
+
+
+
+                if(calNum == 0 && T == true){
                     System.out.println();
                     System.out.println();
                     System.out.println("--- Choose Another Financial Calculator From Menu ---");
