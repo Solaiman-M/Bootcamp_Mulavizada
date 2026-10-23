@@ -38,7 +38,7 @@ public class Book {
         if(!isCheckedOut){
             isCheckedOut = true;
             checkedOutTo = name;
-            System.out.printf("The Book %s has been checked out to %s.", title , name);
+            System.out.printf("The Book with Title %s has been checked out to %s\n.", title , name.toUpperCase());
         }else{
             System.out.println("This book has already checked out.");
         }
@@ -47,9 +47,9 @@ public class Book {
         if(isCheckedOut){
             isCheckedOut = false;
             checkedOutTo = "";
-            System.out.printf("Thank you for returning the book %s.", title);
+            System.out.printf("Thank you for returning the book with Title %s.\n", title);
         } else{
-            System.out.printf("The book %s is already available.",title);
+            System.out.printf("The book %s is already available.\n",title);
         }
 
     }
