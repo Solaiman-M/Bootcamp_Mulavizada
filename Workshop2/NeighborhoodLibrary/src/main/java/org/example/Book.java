@@ -4,14 +4,14 @@ public class Book {
     private int id;
     private String isbn;
     private String title;
-    private boolean isChecketOut;
+    private boolean isCheckedOut;
     private String checkedOutTo;
 
-    public Book(int id, String isbn, String title, boolean isChecketOut, String checkedOutTo) {
+    public Book(int id, String isbn, String title, boolean isCheckedOut, String checkedOutTo) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
-        this.isChecketOut = isChecketOut;
+        this.isCheckedOut = isCheckedOut;
         this.checkedOutTo = checkedOutTo;
     }
 
@@ -27,14 +27,31 @@ public class Book {
         return title;
     }
 
-    public boolean isChecketOut() {
-        return isChecketOut;
+    public boolean isCheckedOut() {
+        return isCheckedOut;
     }
 
     public String getCheckedOutTo() {
         return checkedOutTo;
     }
-    public void checOut (String name){
+    public void checkOut (String name){
+        if(isCheckedOut == false){
+            isCheckedOut = true;
+            checkedOutTo = name;
+            System.out.printf("The Book %s has been checked out to %s.", title , name);
+        }else{
+            System.out.println("This book has already checked out.");
+        }
+    }
+    public void checkIn(){
+        if(isCheckedOut){
+            isCheckedOut = false;
+            checkedOutTo = "";
+            System.out.printf("Thank you for returning the book %s.", title);
+        } else{
+            System.out.printf("The book %s is already available.",title);
+        }
 
     }
+
 }

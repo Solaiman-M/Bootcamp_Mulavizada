@@ -1,8 +1,11 @@
 package org.example;
+import java.util.Scanner;
+
 
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         Book[] books = new Book[20];
         // 5 Fantasy books
         books[0] = new Book(1, "978-0547928227", "The Hobbit", false, "");
@@ -31,9 +34,47 @@ public class Main {
         books[17] = new Book(18, "978-1501175466", "Pet Sematary", false, "");
         books[18] = new Book(19, "978-0451167804", "The Amityville Horror", true, "Chris Martin");
         books[19] = new Book(20, "978-0307743664", "Carrie", false, "");
+        boolean start = true;
+        int choice = 1;
+        while(choice != 0 || true) {
+            if(choice>0 && choice<=3) {
+                System.out.println("---------------- Home Screen ----------------");
+                System.out.println("1. Available Books");
+                System.out.println("2. Checked Out Books");
+                System.out.println("0. Exit");
+                System.out.print("Choose between 1-3: ");
+                choice = scanner.nextInt();
+
+                switch (choice){
+                    case 1:
+                        System.out.println("---------------- Available Books ----------------");
+                        for (Book book : books){
+                            if(!book.isCheckedOut()) {
+                                System.out.printf("ID: %d :: ISBN: %s :: Title: %s.\n",book.getId(),book.getIsbn(),book.getTitle());
 
 
+                                if() {
+                                    System.out.print("Select a book Id to Checkout, or press 0 to Exit: ");
+                                    scanner.nexLine();
+                                }
+                            } else{
 
+                            }
+                        }
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+
+                }
+            }else {
+                System.out.println("You Enter a wrong number. Choose between 1-3: ");
+                choice = scanner.nextInt();
+            }
+            start = false;
+            System.out.println("Thank you.");
+        }
 
     }
 }
