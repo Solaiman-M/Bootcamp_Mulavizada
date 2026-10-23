@@ -35,7 +35,7 @@ public class Book {
         return checkedOutTo;
     }
     public void checkOut (String name){
-        if(isCheckedOut == false){
+        if(!isCheckedOut){
             isCheckedOut = true;
             checkedOutTo = name;
             System.out.printf("The Book %s has been checked out to %s.", title , name);
