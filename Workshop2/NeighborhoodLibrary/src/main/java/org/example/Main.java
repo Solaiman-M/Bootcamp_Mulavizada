@@ -99,20 +99,20 @@ public class Main {
                             checkin = scanner.nextLine();
                             boolean found = false;
                             if (checkin.equalsIgnoreCase("C")) {
-                                System.out.print("Enter the book Id: ");
-                                bookId = scanner.nextInt();
-                                scanner.nextLine();
 
+                                while(!found) {
+                                    System.out.print("Enter the book Id: ");
+                                    bookId =Integer.parseInt(scanner.nextLine());
 
-
-                                for (Book book : books) {
-                                    if (book.getId() == bookId && book.isCheckedOut()) {
-                                        book.checkIn();
-                                        found = true;
-                                        break;
-                                    }else{
-                                        System.out.println("You Enter a Wrong Id, Are you sure you want Check in a book? ");
-                                        break;
+                                    for (Book book : books) {
+                                        if (book.getId() == bookId && book.isCheckedOut()) {
+                                            book.checkIn();
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!found){
+                                        System.out.println("You Enter a Wrong Id. Try again: ");
                                     }
                                 }
 
