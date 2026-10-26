@@ -105,10 +105,11 @@ public class Main {
                         checkin = scanner.nextLine();
                         boolean found = false;
                         if (checkin.equalsIgnoreCase("C")) {
-
+                            int count = 0;
                             while(!found) {
                                 System.out.print("Enter the book Id: ");
                                 bookId =Integer.parseInt(scanner.nextLine());
+
 
                                 for (Book book : books) {
                                     if (book.getId() == bookId && book.isCheckedOut()) {
@@ -117,8 +118,14 @@ public class Main {
                                         break;
                                     }
                                 }
-                                if(!found){
+                                if(!found && count<3){
                                     System.out.println("You Enter a Wrong Id. Try again: ");
+                                    count++;
+
+                                }
+                                else{
+                                    System.out.println("You try too many time, Exiting...");
+                                    break;
                                 }
                             }
 
