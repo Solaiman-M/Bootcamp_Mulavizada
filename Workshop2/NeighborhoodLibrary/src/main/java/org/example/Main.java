@@ -46,7 +46,7 @@ public class Main {
             choice = scanner.nextInt();
             scanner.nextLine();
             while(choice != 0) {
-                if (choice > 0 && choice <= 3) {
+                if (choice > 0 && choice <= 2) {
                     break;
                 }else{
                     System.out.print("You enter a wrong choice. Try Again: \n");
