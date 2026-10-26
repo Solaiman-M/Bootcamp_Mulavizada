@@ -113,7 +113,8 @@ public class Main {
 
                                 for (Book book : books) {
                                     if (book.getId() == bookId && book.isCheckedOut()) {
-                                        book.checkIn();
+                                        bookId =Integer.parseInt(scanner.nextLine());
+
                                         found = true;
                                         break;
                                     }
@@ -123,7 +124,7 @@ public class Main {
                                     count++;
 
                                 }
-                                else{
+                                else if(!found){
                                     System.out.println("You try too many time, Exiting...");
                                     break;
                                 }
