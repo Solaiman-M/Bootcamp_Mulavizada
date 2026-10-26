@@ -37,102 +37,105 @@ public class Main {
         boolean start = true;
         int choice = 1;
         while (choice != 0) {
-            if (choice > 0 && choice <= 3) {
-                System.out.println();
-                System.out.println("---------------- Home Screen ----------------");
-                System.out.println("1. Available Books");
-                System.out.println("2. Checked Out Books");
-                System.out.println("0. Exit");
-                System.out.print("Choose between 0-2: ");
-                choice = scanner.nextInt();
-                scanner.nextLine();
-
-                switch (choice) {
-                    case 1:
-                        System.out.println("---------------- Available Books ----------------");
-                        for (Book book : books) {
-                            if (!book.isCheckedOut()) {
-                                System.out.printf("ID: %d :: ISBN: %s :: Title: %s.\n", book.getId(), book.getIsbn(), book.getTitle());
-                            }
+            System.out.println();
+            System.out.println("---------------- Home Screen ----------------");
+            System.out.println("1. Available Books");
+            System.out.println("2. Checked Out Books");
+            System.out.println("0. Exit");
+            System.out.print("Choose between 0-2: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            while(choice != 0) {
+                if (choice > 0 && choice <= 3) {
+                    break;
+                }else{
+                    System.out.print("You enter a wrong choice. Try Again: \n");
+                    choice = Integer.parseInt(scanner.nextLine());;
+                }
+            }
+            switch (choice) {
+                case 1:
+                    System.out.println("---------------- Available Books ----------------");
+                    for (Book book : books) {
+                        if (!book.isCheckedOut()) {
+                            System.out.printf("ID: %d :: ISBN: %s :: Title: %s.\n", book.getId(), book.getIsbn(), book.getTitle());
                         }
-                        int bookId = 21;
+                    }
+                    int bookId = 21;
 
-                        while (bookId != 0) {
-                            System.out.print("Select a book ID to Checkout, or press 0 to Exit: ");
-                            bookId = Integer.parseInt(scanner.nextLine());
+                    while (bookId != 0) {
+                        System.out.print("Select a book ID to Checkout, or press 0 to Exit: ");
+                        bookId = Integer.parseInt(scanner.nextLine());
 
-                            boolean found = false;
-                            for (Book book : books) {
-                                if (book.getId() == bookId && !book.isCheckedOut()) {
-                                    System.out.print("Enter you name: ");
-                                    String name = scanner.nextLine();
-                                    book.checkOut(name);
-                                    found = true;
-                                    break;
-                                }
-                            }
-                            if(found){
-                               // bookId = scanner.nextInt();
-                                //scanner.nextLine();
+                        boolean found = false;
+                        for (Book book : books) {
+                            if (book.getId() == bookId && !book.isCheckedOut()) {
+                                System.out.print("Enter you name: ");
+                                String name = scanner.nextLine();
+                                book.checkOut(name);
+                                found = true;
                                 break;
-                            }else{
-                                System.out.println("You Enter the wrong Id.");
-
                             }
                         }
+                        if(found){
+                            // bookId = scanner.nextInt();
+                            //scanner.nextLine();
+                            break;
+                        }else{
+                            System.out.println("You Enter the wrong Id.");
 
-                        System.out.println("Returning to Homescreen. ");
-                        System.out.println();
-                        break;
-
-                    case 2:
-                        System.out.println("---------------- Checked Out Books ----------------");
-                        for (Book book : books) {
-                            if (book.isCheckedOut()) {
-                                System.out.printf("ID: %d :: ISBN: %s :: Title: %s :: Name: %S.\n", book.getId(), book.getIsbn(), book.getTitle(), book.getCheckedOutTo());
-                            }
                         }
+                    }
 
-                        String checkin ="";
-                        while(!checkin.equalsIgnoreCase("X")) {
-                            System.out.print("Type C to Check in a book or X to exit the menu: ");
-                            checkin = scanner.nextLine();
-                            boolean found = false;
-                            if (checkin.equalsIgnoreCase("C")) {
+                    System.out.println("Returning to Homescreen. ");
+                    System.out.println();
+                    break;
 
-                                while(!found) {
-                                    System.out.print("Enter the book Id: ");
-                                    bookId =Integer.parseInt(scanner.nextLine());
+                case 2:
+                    System.out.println("---------------- Checked Out Books ----------------");
+                    for (Book book : books) {
+                        if (book.isCheckedOut()) {
+                            System.out.printf("ID: %d :: ISBN: %s :: Title: %s :: Name: %S.\n", book.getId(), book.getIsbn(), book.getTitle(), book.getCheckedOutTo());
+                        }
+                    }
 
-                                    for (Book book : books) {
-                                        if (book.getId() == bookId && book.isCheckedOut()) {
-                                            book.checkIn();
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                    if(!found){
-                                        System.out.println("You Enter a Wrong Id. Try again: ");
+                    String checkin ="";
+                    while(!checkin.equalsIgnoreCase("X")) {
+                        System.out.print("Type C to Check in a book or X to exit the menu: ");
+                        checkin = scanner.nextLine();
+                        boolean found = false;
+                        if (checkin.equalsIgnoreCase("C")) {
+
+                            while(!found) {
+                                System.out.print("Enter the book Id: ");
+                                bookId =Integer.parseInt(scanner.nextLine());
+
+                                for (Book book : books) {
+                                    if (book.getId() == bookId && book.isCheckedOut()) {
+                                        book.checkIn();
+                                        found = true;
+                                        break;
                                     }
                                 }
+                                if(!found){
+                                    System.out.println("You Enter a Wrong Id. Try again: ");
+                                }
+                            }
 
-                            }else if(!checkin.equalsIgnoreCase("X")){
-                                    System.out.println("Wrong option, Try again.");
+                        }else if(!checkin.equalsIgnoreCase("X")){
+                            System.out.println("Wrong option, Try again.");
 
-                             }
+                        }
                         if(found){
                             System.out.println("Returning to Homescreen.");
                             break;
                         }
-                        }
-                        break;
-                    case 0:
-                        break;
-
-                }
+                    }
+                    break;
+                case 0:
+                    break;
 
             }
-
         }
         System.out.println();
         System.out.println("Thank you for visiting our library.");
