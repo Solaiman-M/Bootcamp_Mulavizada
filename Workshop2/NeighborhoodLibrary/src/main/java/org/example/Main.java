@@ -50,7 +50,7 @@ public class Main {
                     break;
                 }else{
                     System.out.print("You enter a wrong choice. Try Again: \n");
-                    choice = Integer.parseInt(scanner.nextLine());;
+                    choice = Integer.parseInt(scanner.nextLine());
                 }
             }
             switch (choice) {
