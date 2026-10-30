@@ -78,10 +78,44 @@ public class Main {
                                     System.out.printf("%d|%s|%s|%.2f|%s%n",p.getId(),p.getsKU(),p.getProductName(),p.getPrice(),p.getDepartment());
                                 }
                                 System.out.println();
+                                System.out.println("Do you want to add a product to your cart? ");
+                                System.out.println("1. Yes");
+                                System.out.println("2. No");
+                                System.out.printf("Enter your choice: ");
+                                int addChoice;
+                                boolean found = true;
+                                try {
+                                    addChoice = Integer.parseInt(scanner.nextLine());
+                                    if (addChoice == 1) {
+                                        System.out.print("Enter the Product SKU: ");
+                                        String sKUChecker = scanner.nextLine();
 
+                                        for (Product p : productList) {
+                                            if (p.getsKU().equalsIgnoreCase(sKUChecker)) {
+                                                cart.add(p);
+                                                System.out.println(p.getProductName() + "has been add to your cart. ");
+                                                found = false;
+                                                break;
+                                            }
+                                        }
+                                        if (!found) {
+                                            System.out.println("You Enter a wrong product SKU. Try again: ");
+                                        }
+                                    } else if (addChoice == 2) {
+                                        System.out.println("Returning to product menu. ");
+                                    } else {
+                                        System.out.println("You Enter a wrong number");
+                                    }
+                                    break;
+                                } catch (Exception ex) {
+                                    System.out.printf("You Enter something that is not a number. Returning to product screen.");
+                                    System.out.println();
+                                }
                                 break;
-                            case 2:
 
+
+                            case 2:
+                                System.out.println();
                                 System.out.printf("What department are you looking for? :");
                                 String depChecker = scanner.nextLine();
                                 System.out.println("ID|Product Name|Price|Product Department");
@@ -90,10 +124,43 @@ public class Main {
                                         System.out.printf("%d|%s|%s|%.2f|%s%n",product.getId(),product.getsKU(),product.getProductName(),product.getPrice(),product.getDepartment());
                                     }
                                 }
+                                found = true;
+                                try {
+                                    addChoice = Integer.parseInt(scanner.nextLine());
+                                    if (addChoice == 1) {
+                                        System.out.print("Enter the Product SKU: ");
+                                        String sKUChecker = scanner.nextLine();
+
+                                        for (Product p : productList) {
+                                            if (p.getsKU().equalsIgnoreCase(sKUChecker)) {
+                                                cart.add(p);
+                                                System.out.println(p.getProductName() + "has been add to your cart. ");
+                                                found = false;
+                                                break;
+                                            }
+                                        }
+                                        if (!found) {
+                                            System.out.println("You Enter a wrong product SKU. Try again: ");
+                                        }
+                                    } else if (addChoice == 2) {
+                                        System.out.println("Returning to product menu. ");
+                                    } else {
+                                        System.out.println("You Enter a wrong number");
+                                    }
+                                    break;
+                                } catch (Exception ex) {
+                                    System.out.printf("You Enter something that is not a number. Returning to product screen.");
+                                    System.out.println();
+                                }
+
                                 break;
 
                             case 3:
-
+                                for(Product product : productList){
+                                    if(product.getDepartment().equalsIgnoreCase(depChecker)){
+                                        System.out.printf("%d|%s|%s|%.2f|%s%n",product.getId(),product.getsKU(),product.getProductName(),product.getPrice(),product.getDepartment());
+                                    }
+                                }
                                 break;
                             case 4:
                                 pick = 0;
