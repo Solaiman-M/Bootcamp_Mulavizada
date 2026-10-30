@@ -77,21 +77,22 @@ public class Main {
                                 for(Product p : productList){
                                     System.out.printf("%d|%s|%s|%.2f|%s%n",p.getId(),p.getsKU(),p.getProductName(),p.getPrice(),p.getDepartment());
                                 }
+                                int addChoice;
+                                boolean found;
                                 System.out.println();
                                 System.out.println("Do you want to add a product to your cart? ");
                                 System.out.println("1. Yes");
                                 System.out.println("2. No");
                                 System.out.printf("Enter your choice: ");
-                                int addChoice;
-                                boolean found = true;
+                                found = true;
                                 try {
                                     addChoice = Integer.parseInt(scanner.nextLine());
                                     if (addChoice == 1) {
-                                        System.out.print("Enter the Product SKU: ");
-                                        String sKUChecker = scanner.nextLine();
+                                        System.out.print("Enter the Product ID: ");
+                                        int idChecker = Integer.parseInt(scanner.nextLine());
 
                                         for (Product p : productList) {
-                                            if (p.getsKU().equalsIgnoreCase(sKUChecker)) {
+                                            if (p.getId() == idChecker) {
                                                 cart.add(p);
                                                 System.out.println(p.getProductName() + "has been add to your cart. ");
                                                 found = false;
@@ -99,12 +100,12 @@ public class Main {
                                             }
                                         }
                                         if (!found) {
-                                            System.out.println("You Enter a wrong product SKU. Try again: ");
+                                            System.out.println("You Enter a wrong product ID. Returning to product screen.");
                                         }
                                     } else if (addChoice == 2) {
                                         System.out.println("Returning to product menu. ");
                                     } else {
-                                        System.out.println("You Enter a wrong number");
+                                        System.out.println("You Enter a wrong number.");
                                     }
                                     break;
                                 } catch (Exception ex) {
@@ -124,15 +125,20 @@ public class Main {
                                         System.out.printf("%d|%s|%s|%.2f|%s%n",product.getId(),product.getsKU(),product.getProductName(),product.getPrice(),product.getDepartment());
                                     }
                                 }
+                                System.out.println();
+                                System.out.println("Do you want to add a product to your cart? ");
+                                System.out.println("1. Yes");
+                                System.out.println("2. No");
+                                System.out.printf("Enter your choice: ");
                                 found = true;
                                 try {
                                     addChoice = Integer.parseInt(scanner.nextLine());
                                     if (addChoice == 1) {
-                                        System.out.print("Enter the Product SKU: ");
-                                        String sKUChecker = scanner.nextLine();
+                                        System.out.print("Enter the Product ID: ");
+                                        int idChecker = Integer.parseInt(scanner.nextLine());
 
                                         for (Product p : productList) {
-                                            if (p.getsKU().equalsIgnoreCase(sKUChecker)) {
+                                            if (p.getId() == idChecker) {
                                                 cart.add(p);
                                                 System.out.println(p.getProductName() + "has been add to your cart. ");
                                                 found = false;
@@ -140,26 +146,66 @@ public class Main {
                                             }
                                         }
                                         if (!found) {
-                                            System.out.println("You Enter a wrong product SKU. Try again: ");
+                                            System.out.println("You Enter a wrong product ID. Returning to product screen.");
                                         }
                                     } else if (addChoice == 2) {
                                         System.out.println("Returning to product menu. ");
                                     } else {
-                                        System.out.println("You Enter a wrong number");
+                                        System.out.println("You Enter a wrong number.");
                                     }
                                     break;
                                 } catch (Exception ex) {
                                     System.out.printf("You Enter something that is not a number. Returning to product screen.");
                                     System.out.println();
                                 }
-
                                 break;
 
                             case 3:
+                                found = true;
+                                System.out.print("Enter your min price: ");
+                                double min = Double.parseDouble(scanner.nextLine());
+
+                                System.out.print("Enter your max price: ");
+                                double max = Double.parseDouble(scanner.nextLine());
+
                                 for(Product product : productList){
-                                    if(product.getDepartment().equalsIgnoreCase(depChecker)){
+                                    if(min <= product.getPrice() && max >= product.getPrice()){
                                         System.out.printf("%d|%s|%s|%.2f|%s%n",product.getId(),product.getsKU(),product.getProductName(),product.getPrice(),product.getDepartment());
+                                        found = false;
                                     }
+                                }
+                                System.out.println();
+                                System.out.println("Do you want to add a product to your cart? ");
+                                System.out.println("1. Yes");
+                                System.out.println("2. No");
+                                System.out.printf("Enter your choice: ");
+                                found = true;
+                                try {
+                                    addChoice = Integer.parseInt(scanner.nextLine());
+                                    if (addChoice == 1) {
+                                        System.out.print("Enter the Product ID: ");
+                                        int idChecker = Integer.parseInt(scanner.nextLine());
+
+                                        for (Product p : productList) {
+                                            if (p.getId() == idChecker) {
+                                                cart.add(p);
+                                                System.out.println(p.getProductName() + "has been add to your cart. ");
+                                                found = false;
+                                                break;
+                                            }
+                                        }
+                                        if (!found) {
+                                            System.out.println("You Enter a wrong product ID. Returning to product screen.");
+                                        }
+                                    } else if (addChoice == 2) {
+                                        System.out.println("Returning to product menu. ");
+                                    } else {
+                                        System.out.println("You Enter a wrong number.");
+                                    }
+                                    break;
+                                } catch (Exception ex) {
+                                    System.out.printf("You Enter something that is not a number. Returning to product screen.");
+                                    System.out.println();
                                 }
                                 break;
                             case 4:
@@ -167,12 +213,15 @@ public class Main {
                                 break;
                         }
                         break;
+                    case 2:
+
+                        break;
                     case 0:
+                        choice = 0;
                         break;
                 }
             }
         }
         System.out.println("Thank you for shopping. ");
-
     }
 }
