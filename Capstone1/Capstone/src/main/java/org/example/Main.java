@@ -4,6 +4,7 @@ package org.example;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -562,36 +563,56 @@ public class Main {
         System.out.println("====  CUSTOM SEARCH ====");
         System.out.println("Welcome to Custom Search!");
 
-        System.out.print("Enter the Start Date(MM/dd/yyyy): ");
-        String startDateInput = scanner.nextLine();
-
         List<Ledger> startDateList = new ArrayList<>();
-        if(startDateInput.isEmpty()){
-            startDateList = ledgerList;
-        }else{
-            LocalDate startDate = LocalDate.parse(startDateInput,dateFormatter);
-            for (int i = 0; i < ledgerList.size(); i++) {
-                Ledger ledger = ledgerList.get(i);
-                if (!ledger.getDate().isBefore(startDate)){
-                    startDateList.add(ledger);
+        boolean pass = true;
+
+        do{
+            System.out.print("Enter the Start Date(MM/dd/yyyy): ");
+            String startDateInput = scanner.nextLine();
+            if(startDateInput.isEmpty()){
+                pass = false;
+                startDateList = ledgerList;
+            }else {
+                try {
+                    LocalDate startDate = LocalDate.parse(startDateInput, dateFormatter);
+                    for (int i = 0; i < ledgerList.size(); i++) {
+                        Ledger ledger = ledgerList.get(i);
+                        if (!ledger.getDate().isBefore(startDate)) {
+                            startDateList.add(ledger);
+                            pass = false;
+                        }
+                    }
+                } catch (DateTimeParseException ex) {
+                    System.out.println("Invalid input for the date. Try again!");
+                    System.out.println("Make sure you have a correct year pattern.");
                 }
             }
-        }
 
+        }while(pass);
+        pass = true;
+        List<Ledger> endDateList = new ArrayList<>();
         System.out.print("Enter the End Date(MM/dd/yyyy): ");
         String endDateInput = scanner.nextLine().trim();
-        List<Ledger> endDateList = new ArrayList<>();
-        if(endDateInput.isEmpty()){
-            endDateList = startDateList;
-        }else{
-            LocalDate endDate = LocalDate.parse(endDateInput,dateFormatter);
-            for (int i =0; i < startDateList.size(); i++) {
-                Ledger ledger = startDateList.get(i);
-                if (!ledger.getDate().isAfter(endDate)){
-                    endDateList.add(ledger);
+        do {
+            if (endDateInput.isEmpty()) {
+                pass = false;
+                endDateList = startDateList;
+            } else {
+                try {
+                    LocalDate endDate = LocalDate.parse(endDateInput, dateFormatter);
+                    for(int i = 0; i < startDateList.size(); i++) {
+                        Ledger ledger = startDateList.get(i);
+                        if (!ledger.getDate().isAfter(endDate)) {
+                            endDateList.add(ledger);
+                            pass = false;
+                        }
+                    }
+                }catch(DateTimeParseException ex){
+                    System.out.println("Invalid input for the date. Try again!");
+                    System.out.println("Make sure you have a correct year pattern.");
                 }
             }
-        }
+        }while (pass);
 
         System.out.print("Enter the name of the vendor: ");
         String vendorMatchInput = scanner.nextLine().toLowerCase().trim();
