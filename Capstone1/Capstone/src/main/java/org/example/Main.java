@@ -608,24 +608,65 @@ public class Main {
 
         System.out.println("What transaction do you want to include.    [P] Purchase | [D] Deposit | [B] Both ");
         System.out.print("Choose an option:");
-        String answerInput = scanner.nextLine().toLowerCase().trim();
-        switch (answerInput){
+        String amountInput = scanner.nextLine().toLowerCase().trim();
+        List<Ledger> amoutList = new ArrayList<>();
+        switch (amountInput){
             case "p":
-
+                if(vendorMatchInput.isEmpty()){
+                    amoutList = vendorList;
+                }else{
+                    for(int i = ledgerList.size()-1;i >= 0; i--){
+                        Ledger ledger = vendorList.get(i);
+                        if (ledger.getAmount() < 0){
+                            amoutList.add(ledger);
+                        }
+                    }
+                }
                 break;
 
             case "d":
-
+                if(vendorMatchInput.isEmpty()){
+                    amoutList = vendorList;
+                }else{
+                    for(int i = ledgerList.size()-1;i >= 0; i--){
+                        Ledger ledger = vendorList.get(i);
+                        if (ledger.getAmount() > 0){
+                            amoutList.add(ledger);
+                        }
+                    }
+                }
                 break;
 
             case "b":
+                /*
+                if(vendorMatchInput.isEmpty()){
+                    amoutList = vendorList;
+                }else{
+                    for(int i = ledgerList.size()-1;i >= 0; i--){
+                        Ledger ledger = vendorList.get(i);
+                        if (ledger.getAmount() == amountInput){
+                            amoutList.add(ledger);
+                        }
+                    }
+                }
 
+                 */
                 break;
         }
 
         System.out.print("Enter the min amount: ");
         double minInput = Double.parseDouble(scanner.nextLine().trim());
-
+        List<Ledger> minAmountList = new ArrayList<>();
+        if(vendorMatchInput.isEmpty()){
+            minAmountList = amoutList;
+        }else{
+            for(int i = ledgerList.size()-1;i >= 0; i--){
+                Ledger ledger = amoutList.get(i);
+                if (ledger.getAmount() > 0){
+                    minAmountList.add(ledger);
+                }
+            }
+        }
         System.out.print("Enter the max amount: ");
         double maxInput = Double.parseDouble(scanner.nextLine().trim());
 
