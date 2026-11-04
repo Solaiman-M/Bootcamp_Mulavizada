@@ -564,6 +564,7 @@ public class Main {
 
         System.out.print("Enter the Start Date(MM/dd/yyyy): ");
         String startDateInput = scanner.nextLine();
+
         List<Ledger> startDateList = new ArrayList<>();
         if(startDateInput.isEmpty()){
             startDateList = ledgerList;
@@ -580,13 +581,13 @@ public class Main {
         System.out.print("Enter the End Date(MM/dd/yyyy): ");
         String endDateInput = scanner.nextLine().trim();
         List<Ledger> endDateList = new ArrayList<>();
-        if(startDateInput.isEmpty()){
-            endDateList = ledgerList;
+        if(endDateInput.isEmpty()){
+            endDateList = startDateList;
         }else{
             LocalDate endDate = LocalDate.parse(endDateInput,dateFormatter);
-            for (int i = ledgerList.size() - 1; i >= 0; i--) {
+            for (int i = startDateList.size() - 1; i >= 0; i--) {
                 Ledger ledger = startDateList.get(i);
-                if (!ledger.getDate().isBefore(endDate)){
+                if (!ledger.getDate().isAfter(endDate)){
                     endDateList.add(ledger);
                 }
             }
@@ -598,7 +599,7 @@ public class Main {
         if(vendorMatchInput.isEmpty()){
             vendorList = endDateList;
         }else{
-            for (int i = ledgerList.size() - 1; i >= 0; i--) {
+            for (int i = endDateList.size() - 1; i >= 0; i--) {
                 Ledger ledger = endDateList.get(i);
                 if (ledger.getVendor().toLowerCase().contains(vendorMatchInput)){
                     vendorList.add(ledger);
@@ -606,18 +607,19 @@ public class Main {
             }
         }
 
-        System.out.println("What transaction do you want to include.    [P] Purchase | [D] Deposit | [B] Both ");
+        System.out.println("What transaction type do you want to include?");
+        System.out.println("[P] Purchase  |  [D] Deposit  |  [B] Both");
         System.out.print("Choose an option:");
         String amountInput = scanner.nextLine().toLowerCase().trim();
         List<Ledger> amoutList = new ArrayList<>();
         switch (amountInput){
             case "p":
-                if(vendorMatchInput.isEmpty()){
+                if(amountInput.isEmpty()){
                     amoutList = vendorList;
                 }else{
-                    for(int i = ledgerList.size()-1;i >= 0; i--){
+                    for(int i = vendorList.size()-1;i >= 0; i--){
                         Ledger ledger = vendorList.get(i);
-                        if (ledger.getAmount() < 0){
+                        if (Math.abs(ledger.getAmount()) <= 0){
                             amoutList.add(ledger);
                         }
                     }
@@ -625,12 +627,12 @@ public class Main {
                 break;
 
             case "d":
-                if(vendorMatchInput.isEmpty()){
+                if(amountInput.isEmpty()){
                     amoutList = vendorList;
                 }else{
-                    for(int i = ledgerList.size()-1;i >= 0; i--){
+                    for(int i = vendorList.size()-1;i >= 0; i--){
                         Ledger ledger = vendorList.get(i);
-                        if (ledger.getAmount() > 0){
+                        if (Math.abs(ledger.getAmount()) >= 0){
                             amoutList.add(ledger);
                         }
                     }
@@ -652,23 +654,59 @@ public class Main {
 
                  */
                 break;
+            default:
+                System.out.println("Invalid option. Try again!");
         }
 
         System.out.print("Enter the min amount: ");
-        double minInput = Double.parseDouble(scanner.nextLine().trim());
+        String minInput = scanner.nextLine().trim();
         List<Ledger> minAmountList = new ArrayList<>();
-        if(vendorMatchInput.isEmpty()){
+        if(minInput.isEmpty()){
             minAmountList = amoutList;
         }else{
-            for(int i = ledgerList.size()-1;i >= 0; i--){
-                Ledger ledger = amoutList.get(i);
-                if (ledger.getAmount() > 0){
-                    minAmountList.add(ledger);
+            try{
+                double minAmount = Double.parseDouble(minInput);
+                for(int i = amoutList.size()-1;i >= 0; i--){
+                    Ledger ledger = amoutList.get(i);
+                    if (Math.abs(ledger.getAmount()) >= minAmount){
+                        minAmountList.add(ledger);
+                    }
                 }
+            }catch(NumberFormatException ex){
+                System.out.println("Invalid answer.");
             }
+
         }
         System.out.print("Enter the max amount: ");
-        double maxInput = Double.parseDouble(scanner.nextLine().trim());
+        String maxInput = scanner.nextLine().trim();
+        List<Ledger> maxAmountList = new ArrayList<>();
+        if(maxInput.isEmpty()){
+            maxAmountList = minAmountList;
+        }else{
+            try {
+                double maxAmount = Double.parseDouble(maxInput);
+                for (int i = minAmountList.size() - 1; i >= 0; i--) {
+                    Ledger ledger = minAmountList.get(i);
+                    if (Math.abs(ledger.getAmount()) <= maxAmount) {
+                        maxAmountList.add(ledger);
+                    }
+                }
+            }catch (NumberFormatException ex){
+                System.out.println("Invalid answer.");
+            }
+        }
+        if(maxAmountList.isEmpty()){
+            System.out.println("No, transaction found based on given details.");
+        }else{
+            System.out.println("-".repeat(118));
+            System.out.printf("%-12s %-14s %-35s %-41s %12s%n","DATE","TIME", "DESCRIPTION", "VENDOR", "AMOUNT");
+            System.out.println("-".repeat(118));
+            for(int i = 0; i < maxAmountList.size()-1;i--){
+                Ledger ledger = maxAmountList.get(i);
+                System.out.printf("%-12s %-14s %-35s %-40s %13.2f%n", ledger.getDate().format(dateFormatter), ledger.getTime().format(timeFormatter), ledger.getDescription(), ledger.getVendor(), ledger.getAmount());
+            }
 
+        }
+        System.out.println("=".repeat(118));
     }
 }
