@@ -23,20 +23,7 @@ public class Main {
                 System.out.println("0. Exit");
                 System.out.printf("Welcome to home screen. Pick a number between 0-2: ");
 
-                try {
-                    choice = Integer.parseInt(scanner.nextLine());
-                    while (choice < 0 && choice > 2) {
-                        System.out.printf("You Enter a worng number, Try to pick a number between 0-2: ");
-                        choice = Integer.parseInt(scanner.nextLine());
-                    }
-                    break;
-                } catch (Exception ex) {
-                    System.out.printf("You need to Enter a NUMBER between 0-2: ");
-                    choice = Integer.parseInt(scanner.nextLine());
-                }
-                if (choice > 0 || choice < 2) {
-                    break;
-                }
+                takeUserInput();
             }
 
             while(choice > 0 && choice < 2){
@@ -214,6 +201,21 @@ public class Main {
                         }
                         break;
                     case 2:
+                        if(cart.isEmpty()){
+                            System.out.println("Your cart is empty.");
+                            break;
+                        }
+
+                        System.out.println("     Check Out     ");
+                        System.out.println("ID   |    Product Name  | Price |  Department");
+                        for (Product p : cart) {
+
+                            System.out.printf("%d|%s|%.2f|%s%n",p.getId(),p.getProductName(),p.getPrice(),p.getDepartment());
+                        }
+                        System.out.println("1. Remove item");
+                        System.out.println("2. Total");
+                        System.out.println("Choice between 1-2: ");
+
 
                         break;
                     case 0:
@@ -223,5 +225,21 @@ public class Main {
             }
         }
         System.out.println("Thank you for shopping. ");
+    }
+    public static void takeUserInput(Scanner){
+        try {
+            pick = Integer.parseInt(scanner.nextLine());
+            while (pick < 0 && pick > 4) {
+                System.out.printf("You Enter a worng number, Try to pick a number between 1-2: ");
+                pick = Integer.parseInt(scanner.nextLine());
+            }
+        } catch (Exception ex) {
+            System.out.printf("You need to Enter a NUMBER between 1-4: ");
+            pick = Integer.parseInt(scanner.nextLine());
+        }
+
+        if (pick > 0 && pick < 4) {
+            break;
+        }
     }
 }

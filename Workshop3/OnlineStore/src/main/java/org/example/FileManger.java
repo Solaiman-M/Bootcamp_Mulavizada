@@ -28,7 +28,7 @@ public class FileManger {
 
         }
         catch(IOException ex){
-            System.out.println("Could not read the file. Check the file. try again.");
+            System.out.println("Could not read the file. Check the file.");
             //ex.printStackTrace();
         }
         catch(Exception ex){
@@ -42,7 +42,7 @@ public class FileManger {
     public static void writeInventory(Product product){
 
         try{
-            FileWriter fileWriter = new FileWriter("src/main/resources/inventory.csv",true);
+            FileWriter fileWriter = new FileWriter("src/main/resources/Products.csv",true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             String line = String.format("%d|%s|%s|%.2f|%s",product.getId(),product.getsKU(),product.getProductName(),product.getPrice(), product.getDepartment());
