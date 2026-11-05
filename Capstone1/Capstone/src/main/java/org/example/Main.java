@@ -55,12 +55,30 @@ public class Main {
         }
     }
     public static void addDeposit(){
-        System.out.print("Enter description: ");
-        String description = scanner.nextLine().trim();
-        System.out.println("-".repeat(67));
-        System.out.print("Enter vendor: ");
-        String vendor = scanner.nextLine().trim();
-        System.out.println("-".repeat(67));
+        boolean pass = true;
+        String description;
+        do{
+            System.out.print("Enter description: ");
+            description = scanner.nextLine().trim();
+            System.out.println("-".repeat(67));
+            if(description.isEmpty()){
+                System.out.println("Description cannot be empty.");
+            }else {
+                pass = false;
+            }
+        }while(pass);
+        pass = true;
+        String vendor;
+        do {
+            System.out.print("Enter vendor: ");
+            vendor = scanner.nextLine().trim();
+            System.out.println("-".repeat(67));
+            if(vendor.isEmpty()){
+                System.out.println("Vendor cannot be empty.");
+            }else {
+                pass = false;
+            }
+        }while(pass);
         double amount;
         while(true){
             System.out.print("Enter the amount: $");
@@ -69,7 +87,6 @@ public class Main {
                 System.out.println("-".repeat(67));
                 if(amount <= 0){
                     System.out.println("Amount must be greater than zero.");
-                    System.out.println("-".repeat(67));
                     continue;
                 }
                 break;
@@ -78,26 +95,44 @@ public class Main {
                 System.out.println("Please enter a valid amount");
                 System.out.println("-".repeat(67));
             }
+            System.out.println("-".repeat(67));
         }
         Ledger ledger = new Ledger(LocalDate.now(), LocalTime.now(), description, vendor, amount);
         FileManager.writeLedger(ledger);
     }
     public static void addPayment(){
-        System.out.print("Enter description: ");
-        String description = scanner.nextLine().trim();
-        System.out.println("-".repeat(67));
-        System.out.print("Enter vendor: ");
-        String vendor = scanner.nextLine().trim();
-        System.out.println("-".repeat(67));
+        boolean pass = true;
+        String description;
+        do{
+            System.out.print("Enter description: ");
+            description = scanner.nextLine().trim();
+            System.out.println("-".repeat(67));
+            if(description.isEmpty()){
+                System.out.println("Description cannot be empty.");
+            }else {
+                pass = false;
+            }
+        }while(pass);
+        pass = true;
+        String vendor;
+        do {
+            System.out.print("Enter vendor: ");
+            vendor = scanner.nextLine().trim();
+            System.out.println("-".repeat(67));
+            if(vendor.isEmpty()){
+                System.out.println("Vendor cannot be empty.");
+            }else {
+                pass = false;
+            }
+        }while(pass);
         double amount;
         while(true){
             System.out.print("Enter the amount: $");
             try {
                 amount = Double.parseDouble(scanner.nextLine().trim());
-                System.out.println("-".repeat(67));
                 if(amount <= 0){
-                    System.out.println("Amount must be greater than zero.");
                     System.out.println("-".repeat(67));
+                    System.out.println("Amount must be greater than zero.");
                     continue;
                 }
                 break;
@@ -107,6 +142,8 @@ public class Main {
                 System.out.println("-".repeat(67));
             }
         }
+        System.out.println("-".repeat(67));
+
         amount = -amount;
         Ledger ledger = new Ledger(LocalDate.now(), LocalTime.now(), description, vendor, amount);
         FileManager.writeLedger(ledger);
