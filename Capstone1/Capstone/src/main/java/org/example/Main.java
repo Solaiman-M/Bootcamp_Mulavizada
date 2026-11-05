@@ -57,22 +57,26 @@ public class Main {
     public static void addDeposit(){
         System.out.print("Enter description: ");
         String description = scanner.nextLine().trim();
-
+        System.out.println("-".repeat(67));
         System.out.print("Enter vendor: ");
         String vendor = scanner.nextLine().trim();
+        System.out.println("-".repeat(67));
         double amount;
         while(true){
             System.out.print("Enter the amount: $");
             try {
                 amount = Double.parseDouble(scanner.nextLine().trim());
+                System.out.println("-".repeat(67));
                 if(amount <= 0){
                     System.out.println("Amount must be greater than zero.");
+                    System.out.println("-".repeat(67));
                     continue;
                 }
                 break;
             }
             catch (NumberFormatException ex){
                 System.out.println("Please enter a valid amount");
+                System.out.println("-".repeat(67));
             }
         }
         Ledger ledger = new Ledger(LocalDate.now(), LocalTime.now(), description, vendor, amount);
@@ -81,22 +85,26 @@ public class Main {
     public static void addPayment(){
         System.out.print("Enter description: ");
         String description = scanner.nextLine().trim();
-
+        System.out.println("-".repeat(67));
         System.out.print("Enter vendor: ");
         String vendor = scanner.nextLine().trim();
+        System.out.println("-".repeat(67));
         double amount;
         while(true){
             System.out.print("Enter the amount: $");
             try {
                 amount = Double.parseDouble(scanner.nextLine().trim());
+                System.out.println("-".repeat(67));
                 if(amount <= 0){
                     System.out.println("Amount must be greater than zero.");
+                    System.out.println("-".repeat(67));
                     continue;
                 }
                 break;
             }
             catch (NumberFormatException ex){
                 System.out.println("Please enter a valid amount");
+                System.out.println("-".repeat(67));
             }
         }
         amount = -amount;
@@ -585,7 +593,7 @@ public class Main {
                     pass = false;
                 } catch (DateTimeParseException ex) {
                     System.out.println("Invalid input for the date. Try again!");
-                    System.out.println("Make sure you have a correct year pattern.");
+                    System.out.println("Make sure you have the correct year pattern.");
                     System.out.println("-".repeat(67));
                 }
             }
@@ -613,7 +621,7 @@ public class Main {
                     pass = false;
                 }catch(DateTimeParseException ex){
                     System.out.println("Invalid input for the date. Try again!");
-                    System.out.println("Make sure you have a correct year pattern.");
+                    System.out.println("Make sure you have the correct year pattern.");
                     System.out.println("-".repeat(67));
                 }
             }
@@ -636,7 +644,7 @@ public class Main {
 
         System.out.println("What transaction type do you want to include?");
         System.out.println("[P] Purchase  |  [D] Deposit  |  [B] Both");
-        System.out.print("Choose an option:");
+        System.out.print("Choose an option: ");
         String amountInput = scanner.nextLine().toLowerCase().trim();
         System.out.println("-".repeat(67));
         List<Ledger> amountList = new ArrayList<>();
@@ -756,20 +764,21 @@ public class Main {
 
         if(maxAmountList.isEmpty()){
             System.out.println("No, transaction found based on given details.");
+            System.out.println("-".repeat(67));
         }else{
             System.out.println("-".repeat(118));
-            System.out.println("");
+            System.out.println("Searching based on the description.");
             System.out.println("-".repeat(118));
             System.out.printf("%-12s %-14s %-35s %-41s %12s%n","DATE","TIME", "DESCRIPTION", "VENDOR", "AMOUNT");
             System.out.println("-".repeat(118));
-            for(int i = maxAmountList.size()-1; i > 0; i--) {
+            for(int i = 0; i < maxAmountList.size(); i++) {
                 Ledger ledger = maxAmountList.get(i);
                 System.out.printf("%-12s %-14s %-35s %-40s %13.2f%n", ledger.getDate().format(dateFormatter), ledger.getTime().format(timeFormatter), ledger.getDescription(), ledger.getVendor(), ledger.getAmount());
             }
+            System.out.println("-".repeat(118));
+            System.out.println("Total Transactions Found: "+maxAmountList.size());
+            System.out.println("-".repeat(118));
         }
-        System.out.println("-".repeat(118));
-        System.out.println("Total Transactions Found: "+maxAmountList.size());
-        System.out.println("-".repeat(118));
 
         System.out.println("=".repeat(118));
     }
