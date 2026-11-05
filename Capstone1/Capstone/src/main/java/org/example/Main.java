@@ -579,9 +579,9 @@ public class Main {
                         Ledger ledger = ledgerList.get(i);
                         if (!ledger.getDate().isBefore(startDate)) {
                             startDateList.add(ledger);
-                            pass = false;
                         }
                     }
+                    pass = false;
                 } catch (DateTimeParseException ex) {
                     System.out.println("Invalid input for the date. Try again!");
                     System.out.println("Make sure you have a correct year pattern.");
@@ -591,9 +591,9 @@ public class Main {
         }while(pass);
         pass = true;
         List<Ledger> endDateList = new ArrayList<>();
-        System.out.print("Enter the End Date(MM/dd/yyyy): ");
-        String endDateInput = scanner.nextLine().trim();
         do {
+            System.out.print("Enter the End Date(MM/dd/yyyy): ");
+            String endDateInput = scanner.nextLine().trim();
             if (endDateInput.isEmpty()) {
                 pass = false;
                 endDateList = startDateList;
@@ -604,9 +604,10 @@ public class Main {
                         Ledger ledger = startDateList.get(i);
                         if (!ledger.getDate().isAfter(endDate)) {
                             endDateList.add(ledger);
-                            pass = false;
+
                         }
                     }
+                    pass = false;
                 }catch(DateTimeParseException ex){
                     System.out.println("Invalid input for the date. Try again!");
                     System.out.println("Make sure you have a correct year pattern.");
@@ -632,16 +633,16 @@ public class Main {
         System.out.println("[P] Purchase  |  [D] Deposit  |  [B] Both");
         System.out.print("Choose an option:");
         String amountInput = scanner.nextLine().toLowerCase().trim();
-        List<Ledger> amoutList = new ArrayList<>();
+        List<Ledger> amountList = new ArrayList<>();
         switch (amountInput){
             case "p":
                 if(amountInput.isEmpty()){
-                    amoutList = vendorList;
+                    amountList = vendorList;
                 }else{
                     for(int i = 0; i < vendorList.size(); i++){
                         Ledger ledger = vendorList.get(i);
                         if (ledger.getAmount() < 0){
-                            amoutList.add(ledger);
+                            amountList.add(ledger);
                         }
                     }
                 }
@@ -649,19 +650,19 @@ public class Main {
 
             case "d":
                 if(amountInput.isEmpty()){
-                    amoutList = vendorList;
+                    amountList = vendorList;
                 }else{
                     for(int i =0; i < vendorList.size(); i++){
                         Ledger ledger = vendorList.get(i);
                         if (ledger.getAmount() > 0){
-                            amoutList.add(ledger);
+                            amountList.add(ledger);
                         }
                     }
                 }
                 break;
 
             case "b":
-                amoutList = vendorList;
+                amountList = vendorList;
                 /*
                 if(vendorMatchInput.isEmpty()){
                     amoutList = vendorList;
@@ -680,60 +681,64 @@ public class Main {
                 System.out.println("Invalid option. Try again!");
         }
 
-        System.out.print("Enter the min amount: ");
-        String minInput = scanner.nextLine().trim();
         boolean correct = true;
         List<Ledger> minAmountList = new ArrayList<>();
-        if(minInput.isEmpty()){
-            minAmountList = amoutList;
-        }
-        //double minAmount;
-        if(correct)
-        {
-            try{
-                double minAmount = Double.parseDouble(minInput);
-                for(int i =0; i < amoutList.size(); i++){
-                    Ledger ledger = amoutList.get(i);
-                    if (Math.abs(ledger.getAmount()) >= Math.abs(minAmount)){
-                        minAmountList.add(ledger);
-                    }
-                }
-
-            }catch(NumberFormatException ex){
-                System.out.println("Invalid answer.");
-                return;
-            }
-        }
-        double minValue = Double.parseDouble(minInput);
-        System.out.print("Enter the max amount: ");
-        String maxInput = scanner.nextLine().trim();
-        List<Ledger> maxAmountList = new ArrayList<>();
-        if(maxInput.isEmpty()){
-            maxAmountList = minAmountList;
-        }
-        else{
+        double minAmount = 0;
+        String minInput = "";
+        do {
+            System.out.print("Enter the min amount: ");
+            minInput = scanner.nextLine().trim();
+            if(minInput.isEmpty()){
+                correct = false;
+                minAmountList = amountList;
+            }else {
                 try {
-                    double maxAmount = Double.parseDouble(maxInput);
+                    minAmount = Double.parseDouble(minInput);
+                    for (int i = 0; i < amountList.size(); i++) {
+                        Ledger ledger = amountList.get(i);
+                        if (Math.abs(ledger.getAmount()) >= Math.abs(minAmount)) {
+                            minAmountList.add(ledger);
 
-                    for (int i = 0; i < minAmountList.size(); i++) {
-                        Ledger ledger = minAmountList.get(i);
-                        if (Math.abs(ledger.getAmount()) <= Math.abs(maxAmount)){
-                            maxAmountList.add(ledger);
                         }
                     }
-                    if(minValue > maxAmount) {
+                    correct = false;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Invalid Input. Try again!");
+                }
+            }
+        }while(correct);
+
+        correct = true;
+        List<Ledger> maxAmountList = new ArrayList<>();
+        double maxAmount = 0;
+        do {
+            System.out.print("Enter the max amount: ");
+            String maxInput = scanner.nextLine().trim();
+
+            if (maxInput.isEmpty()) {
+                correct = false;
+                maxAmountList = minAmountList;
+            } else {
+                try {
+                    maxAmount = Double.parseDouble(maxInput);
+                    if(!minInput.isEmpty() && maxAmount < minAmount) {
+                        System.out.println("Maximum amount cannot be smaller than minimum amount. Try again!");
+                    }else{
+                        for(int i = 0; i < minAmountList.size(); i++) {
+                            Ledger ledger = minAmountList.get(i);
+                            if (Math.abs(ledger.getAmount()) <= Math.abs(maxAmount)) {
+                                maxAmountList.add(ledger);
+                            }
+                        }
                         correct = false;
                     }
-                }catch (NumberFormatException ex){
-                    System.out.println("Invalid answer.");
-                    return;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Invalid Input. Try again!");
                 }
+            }
+        }while(correct);
 
-        }
-        if(!correct){
-            System.out.println("You min cannot be less then your max!");
-        }
-        else if(maxAmountList.isEmpty()){
+        if(maxAmountList.isEmpty()){
             System.out.println("No, transaction found based on given details.");
         }else{
             System.out.println("-".repeat(118));
