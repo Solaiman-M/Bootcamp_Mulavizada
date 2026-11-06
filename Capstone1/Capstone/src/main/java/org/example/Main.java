@@ -608,7 +608,7 @@ public class Main {
         System.out.println("=".repeat(118));
         System.out.println(" ".repeat(50)+"CUSTOM SEARCH");
         System.out.println("=".repeat(118));
-        System.out.println("Fill The Blank or Press Enter to Skip. ");
+        System.out.println("Fill The Blank or Press Enter to Skip the Question. ");
         System.out.println("-".repeat(67));
         List<Ledger> startDateList = new ArrayList<>();
         boolean pass = true;
