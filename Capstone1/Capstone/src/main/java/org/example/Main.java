@@ -22,7 +22,7 @@ public class Main {
             System.out.println(" ".repeat(29)+"MAIN MENU");
             System.out.println("=".repeat(67));
             System.out.println("[D]  Add Deposit");
-            System.out.println("[P]  Make Payment");
+            System.out.println("[P]  Add Payment");
             System.out.println("[L]  Ledger");
             System.out.println("[X]  Exit");
             System.out.println("-".repeat(67));
@@ -107,7 +107,7 @@ public class Main {
             System.out.print("Enter description: ");
             description = scanner.nextLine().trim();
             System.out.println("-".repeat(67));
-            if(description.isEmpty()){
+            if(description.trim().isEmpty()){
                 System.out.println("Description cannot be empty.");
             }else {
                 pass = false;
@@ -119,7 +119,7 @@ public class Main {
             System.out.print("Enter vendor: ");
             vendor = scanner.nextLine().trim();
             System.out.println("-".repeat(67));
-            if(vendor.isEmpty()){
+            if(vendor.trim().isEmpty()){
                 System.out.println("Vendor cannot be empty.");
             }else {
                 pass = false;
@@ -608,6 +608,8 @@ public class Main {
         System.out.println("=".repeat(118));
         System.out.println(" ".repeat(50)+"CUSTOM SEARCH");
         System.out.println("=".repeat(118));
+        System.out.println("Fill The Blank or Press Enter to Skip. ");
+        System.out.println("-".repeat(67));
         List<Ledger> startDateList = new ArrayList<>();
         boolean pass = true;
 

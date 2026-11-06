@@ -177,23 +177,3 @@ Positive values represent deposits (incoming money).
 Negative values represent payments (outgoing money).
 
 This convention makes it easier to distinguish between incoming and outgoing transactions when generating reports.
-
-Future Improvements
-
-Potential enhancements for future versions include:
-
-Add transaction editing and deletion functionality.
-Implement account balance calculations.
-Add transaction sorting options.
-Export reports to CSV or PDF.
-Improve input validation for descriptions and vendor names.
-Add support for multiple accounts.
-Implement a graphical user interface (GUI).
-Improve file handling and error management.
-Author
-
-Developed as a Java programming project to demonstrate object-oriented programming, file handling, collections, date and time management, and console-based application development.
-
-License
-
-This project is intended for educational and personal development purposes.
